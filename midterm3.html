@@ -35,7 +35,7 @@
             }
 
             .modal{
-                display: block;
+                display: none;
                 position: fixed;
                 z-index: 1;
                 left: 0;
@@ -54,6 +54,7 @@
                 animation: fade 2s;
                 border-radius: 5px;
                 min-width: 400px;
+                box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
             }
             @keyframes fade{
                 from{
@@ -63,16 +64,7 @@
                     opacity: 1;
                 }
             }
-            @keyframes fadeout{
-                from{
-                    opacity: 1;
-                    background-color: yellow;
-                }
-                to{
-                    opacity: 0;
-                    background-color: red;
-                }
-            }
+           
             .fadeout{
                 opacity: 0;
                 transition: 2s;
@@ -187,12 +179,18 @@
                 background-color: rgb(67, 233, 67);
                 box-shadow: 2px 2px 2px rgb(216, 215, 215);
             }
+            #submit:active{
+                box-shadow: 2px 2px 2px black;
+            }
             #reset{
                 background-color: lightsteelblue;
             }
             #reset:hover{
                 background-color: rgb(111, 160, 223);
                 box-shadow: 2px 2px 2px rgb(216, 215, 215);
+            }
+            #reset:active{
+                box-shadow: 2px 2px 2px black;
             }
         </style>
     </head>
@@ -203,36 +201,36 @@
         </nav>
         <main>
             <div id="modalbox1" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+                <div class="modal-content" id="rgcontent">
+                    <span class="close" id="rgclose">&times;</span>
                     <p>Registration</p>
                     <form>
                         <div class="inline">
                             <span class="iconspan"><i class="fas fa-user-alt"></i></span>
-                            <input type="text" placeholder="First Name">
-                            <input type="text" placeholder="Last Name">
+                            <input type="text" placeholder="First Name" id="fname" required>
+                            <input type="text" placeholder="Last Name" id="lname" required>
                         </div>
                         <div class="inline">
                             <span class="iconspan"><i class="fas fa-envelope"></i></span>
-                            <input type="email" placeholder="E-mail">
+                            <input type="email" placeholder="E-mail" id="mail" required>
                         </div>
                         <div class="inline">
                             <span class="iconspan"><i class="fas fa-unlock"></i></span>
-                            <input type="password" placeholder="Password">
+                            <input type="password" placeholder="Password" id="pw" required>
                         </div>
                         <div class="inline">
                             <span class="iconspan"><i class="fas fa-phone"></i></span>
-                            <input type="tel" placeholder="Telephone">
+                            <input type="tel" placeholder="Telephone" id="phone" required>
                         </div>
                         <div class="inline">
                             <span class="iconspan"><i class="fas fa-edit"></i></span>
                             <div class="radioline">
                             <div class="radios">
-                                <input type="radio" name="course" value="english" id="english">
+                                <input type="radio" name="course" value="english" id="english" required>
                                 <label for="english">English</label>
                             </div>
                             <div class="radios">
-                                <input type="radio" name="course" value="career" id="career">
+                                <input type="radio" name="course" value="career" id="career" required>
                                 <label for="career">Career</label>
                             </div>
                             </div>
@@ -241,6 +239,12 @@
                             <span class="iconspan iconselect"><i class="fas fa-angle-right"></i></span>
                             <select name="selectlist" id="selectlist">
 
+                            </select>
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan iconselect"><i class="fas fa-signal"></i></span>
+                            <select name="selectlist2" id="selectlist2">
+                                
                             </select>
                         </div>
                         <div class="btnline">
@@ -265,13 +269,39 @@
             "Hospitality Management": "HM", 
             "Digital Marketing" : "DM"
         };
+        var level = {
+            "Beginner" : "BG",
+            "Intermediate" : "IM",
+            "Advanced" : "AD"
+        }
         var selectObj = document.querySelector("#selectlist");
+        var selectObj2 = document.querySelector("#selectlist2");
         var radios = document.querySelectorAll("input[name=course]");
         var icon = document.querySelector(".iconselect");
+        var submit = document.querySelector("#submit");
         selectObj.disabled = true;
+        selectObj2.disabled = true;
+        submit.addEventListener('click', function(){
+            var fname = document.querySelector("#fname").value;
+            var lname = document.querySelector("#lname").value;
+            var mail = document.querySelector("#mail").value;
+            var pw = document.querySelector("#pw").value;
+            var phone = document.querySelector("#phone").value;
+            if(fname == "" || lname == "" || mail == "" || pw == "" || phone == ""){
+                alert("Please fill out the form completely");
+            }
+        });
+        for(var i=0; i<radios.length; i++){
+            radios[i].addEventListener('change',listchk);
+        }
         function listchk(event){
             selectObj.disabled = false;
+            selectObj2.disabled = false;
             selectObj.innerHTML = "";
+            selectObj2.innerHTML = "";
+            for(var key in level){
+                addList(selectObj2, key, level[key]);
+            }
             if(event.target.value == "english"){
                 icon.innerHTML = "<i class='fas fa-font'></i>";
                 for(var key in engList){
@@ -283,9 +313,6 @@
                     addList(selectObj, key, careerList[key]);
                 }
             }
-        }
-        for(var i=0; i<radios.length; i++){
-            radios[i].addEventListener('change',listchk);
         }
         function addList(selectObj, optionText, optionValue){
             var opt = document.createElement("option");
@@ -305,6 +332,23 @@
             for(var i=0; i<fields.length; i++){
                 fields[i].addEventListener('focus',highlight);
                 fields[i].addEventListener('blur',highlight);
+            }
+        })
+
+        var rgbtn = document.querySelector("#regisModal");
+        var rgModal = document.querySelector("#modalbox1");
+        var rgModalCon = document.querySelector("#rgcontent");
+        var rgModalClose = document.querySelector("#rgclose");
+        rgbtn.addEventListener('click',function(){
+            rgModal.style.display = "block";
+        })
+        rgModalClose.addEventListener('click',function(){
+            rgModal.style.display = "none";
+        })
+        window.addEventListener('click', function(event){
+            console.log(event.target);
+            if(event.target == rgModal){
+                rgModal.style.display = "none";
             }
         })
     </script>
