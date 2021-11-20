@@ -148,8 +148,6 @@
                 right: 0;
                 width: 90%;
                 height: 2rem;
-                line-height: 3rem;
-                display: inline-block;
                 outline: none;
                 border: none;
                 border-radius: 5px;
@@ -162,9 +160,39 @@
             }
             option{
                 font-size: 0.95rem;
-                display: inline-block;
-                line-height: 3rem;
-                height: 3rem;
+            }
+            .btnline{
+                display: flex;
+                justify-content: space-between;
+                margin-top: 1.5rem;
+            }
+            .regisbtn{
+                width: 40%;
+                color: white;
+                text-shadow: 1px 1px 2px darkgray;
+                padding: 0.8rem 2rem;
+                margin: 0 1rem;
+                border: none;
+                box-shadow: 1px 1px 1px rgb(216, 215, 215);
+                transition: 0.5s;
+                border-radius: 20px;
+            }
+            .regisbtn:hover{
+                cursor: pointer;
+            }
+            #submit{
+                background-color: lightgreen;
+            }
+            #submit:hover{
+                background-color: rgb(67, 233, 67);
+                box-shadow: 2px 2px 2px rgb(216, 215, 215);
+            }
+            #reset{
+                background-color: lightsteelblue;
+            }
+            #reset:hover{
+                background-color: rgb(111, 160, 223);
+                box-shadow: 2px 2px 2px rgb(216, 215, 215);
             }
         </style>
     </head>
@@ -215,8 +243,10 @@
 
                             </select>
                         </div>
-                    <button type="submit" class="regisbtn" id="submit">Submit</button>
-                    <button type="reset" class="regisbtn"  id="reset">Reset</button>
+                        <div class="btnline">
+                            <button type="submit" class="regisbtn" id="submit">Submit</button>
+                            <button type="reset" class="regisbtn"  id="reset">Reset</button>
+                        </div>
                     </form> 
                 </div>
             </div>
