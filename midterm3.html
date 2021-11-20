@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://kit.fontawesome.com/0f63262170.js" crossorigin="anonymous"></script>
+        <title>Midterm - modal box</title>
+        <style>
+            html,body{
+                margin :0;
+                padding: 0;
+                font-family: 'Courier New', Courier, monospace;
+            }
+            nav{
+                height: 3rem;
+                background-color: #1565c0;
+                margin: 0;
+                display: flex;
+                justify-content: end;
+                padding-right: 2rem;
+                align-items: center;
+            }
+            nav button{
+                color: white;
+                border: none;
+                padding: 0.5rem 1.3rem;
+                font-size: 1.2rem;
+                background-color: transparent;
+                transition: 0.8s;
+                border-radius: 20px;
+            }
+            nav button:hover{
+                cursor: pointer;
+                background-color: #003c8f;
+            }
+
+            .modal{
+                display: block;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.424);
+            }
+            .modal-content{
+                background-color: rgb(247, 247, 247) ;
+                margin: 5% auto;
+                padding: 3rem;
+                border: 1px solid #888;
+                width: 30%;
+                animation: fade 2s;
+                border-radius: 5px;
+                min-width: 400px;
+            }
+            @keyframes fade{
+                from{
+                    opacity: 0;
+                }
+                to{
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeout{
+                from{
+                    opacity: 1;
+                    background-color: yellow;
+                }
+                to{
+                    opacity: 0;
+                    background-color: red;
+                }
+            }
+            .fadeout{
+                opacity: 0;
+                transition: 2s;
+                display: none;
+            }
+            .close{
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                transition: 0.5s;
+            }
+            .close:hover, .close:focus{
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            p{
+                font-size: 2.2rem;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align: center;
+                margin: 0;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid darkgray;
+                color: #02214be8;
+                font-weight: bold;
+            }
+            form{
+                display: grid;
+                margin: auto;
+                justify-content: center;
+                width: 80%;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            div.inline{
+                width: 100%;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+            #modalbox1 i{
+                background-color: #1564bf;
+                color: white;
+                padding: 10px;
+                border-radius: 30px;
+                margin-right: 5px;
+                width: 1rem;
+                text-align: center;
+            }
+            .fa-circle{
+                color: #1564bf;
+
+            }
+            #modalbox1 input[type=text], input[type=email], input[type=password], input[type=tel]{
+                outline: none;
+                height: 2rem;
+                border: none;
+                border-radius: 5px;
+                margin-left: 5px;
+                padding-left: 8px;
+                box-shadow: 1px 1px 2px rgb(216, 215, 215);
+                width: 100%;
+                transition: 0.6s;
+            }
+            .radioline{
+                display: flex;
+                width: 100%;
+                justify-content: space-evenly;
+            }
+            select{
+                right: 0;
+                width: 90%;
+                height: 2rem;
+                line-height: 3rem;
+                display: inline-block;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                margin-left: 5px;
+                padding-left: 8px;
+                box-shadow: 1px 1px 2px rgb(216, 215, 215);
+            }
+            select[disabled]{
+                background-color: rgb(230, 230, 230);
+            }
+            option{
+                font-size: 0.95rem;
+                display: inline-block;
+                line-height: 3rem;
+                height: 3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <button id="regisModal">Register</button>
+            <button id="loginModal">Login</button>
+        </nav>
+        <main>
+            <div id="modalbox1" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Registration</p>
+                    <form>
+                        <div class="inline">
+                            <span class="iconspan"><i class="fas fa-user-alt"></i></span>
+                            <input type="text" placeholder="First Name">
+                            <input type="text" placeholder="Last Name">
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan"><i class="fas fa-envelope"></i></span>
+                            <input type="email" placeholder="E-mail">
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan"><i class="fas fa-unlock"></i></span>
+                            <input type="password" placeholder="Password">
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan"><i class="fas fa-phone"></i></span>
+                            <input type="tel" placeholder="Telephone">
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan"><i class="fas fa-edit"></i></span>
+                            <div class="radioline">
+                            <div class="radios">
+                                <input type="radio" name="course" value="english" id="english">
+                                <label for="english">English</label>
+                            </div>
+                            <div class="radios">
+                                <input type="radio" name="course" value="career" id="career">
+                                <label for="career">Career</label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="inline">
+                            <span class="iconspan iconselect"><i class="fas fa-angle-right"></i></span>
+                            <select name="selectlist" id="selectlist">
+
+                            </select>
+                        </div>
+                    <button type="submit" class="regisbtn" id="submit">Submit</button>
+                    <button type="reset" class="regisbtn"  id="reset">Reset</button>
+                    </form> 
+                </div>
+            </div>
+        </main>
+    </body>
+    <script>
+        var engList = {
+            "ESL" : "ESL",
+            "TOEFL" : "TOEFL",
+            "IELTS" : "IELTS"
+        };
+        var careerList = {
+            "Web Development" : "WD", 
+            "User Interface" : "UI", 
+            "User experience" : "UX", 
+            "Hospitality Management": "HM", 
+            "Digital Marketing" : "DM"
+        };
+        var selectObj = document.querySelector("#selectlist");
+        var radios = document.querySelectorAll("input[name=course]");
+        var icon = document.querySelector(".iconselect");
+        selectObj.disabled = true;
+        function listchk(event){
+            selectObj.disabled = false;
+            selectObj.innerHTML = "";
+            if(event.target.value == "english"){
+                icon.innerHTML = "<i class='fas fa-font'></i>";
+                for(var key in engList){
+                    addList(selectObj, key, engList[key]);
+                }
+            }else if(event.target.value == "career"){
+                icon.innerHTML = "<i class='fas fa-laptop'></i>";
+                for(var key in careerList){
+                    addList(selectObj, key, careerList[key]);
+                }
+            }
+        }
+        for(var i=0; i<radios.length; i++){
+            radios[i].addEventListener('change',listchk);
+        }
+        function addList(selectObj, optionText, optionValue){
+            var opt = document.createElement("option");
+            opt.innerHTML = optionText;
+            opt.value = optionValue;
+            selectObj.appendChild(opt);
+        }
+        function highlight(event){
+            if(event.type == 'focus'){
+                event.target.style.backgroundColor = "lightgray";
+            }else if(event.type == 'blur'){
+                event.target.style.backgroundColor = "white";
+            }
+        }
+        window.addEventListener('load', function(){
+            var fields = document.querySelectorAll("input[type=text], input[type=email], input[type=password], input[type=tel]");
+            for(var i=0; i<fields.length; i++){
+                fields[i].addEventListener('focus',highlight);
+                fields[i].addEventListener('blur',highlight);
+            }
+        })
+    </script>
+</html>
