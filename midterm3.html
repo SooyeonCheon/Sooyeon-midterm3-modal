@@ -17,13 +17,14 @@
                 margin: 0;
                 display: flex;
                 justify-content: end;
-                padding-right: 2rem;
+                padding-right: 1rem;
                 align-items: center;
             }
             nav button{
                 color: white;
                 border: none;
                 padding: 0.5rem 1.3rem;
+                margin-right: 0.5rem;
                 font-size: 1.2rem;
                 background-color: transparent;
                 transition: 0.8s;
@@ -35,15 +36,27 @@
             }
 
             .modal{
-                display: none;
                 position: fixed;
-                z-index: 1;
-                left: 0;
+                right: 0;
                 top: 0;
-                width: 100%;
-                height: 100%;
+                width: 100vw;
+                height: 100vh;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.424);
+                z-index: 1;
+                opacity: 0;
+                top:-200%;
+                transform: translate(0%, -50%) scale(0);
+                transition: opacity 1s ease-in-out,
+                            top 1s ease-in-out,
+                            transform 1s ease-in-out;
+            }
+            .active{
+                opacity:1;
+                top:50%;
+                right: 0;
+                transform: translate(0%, -50%) scale(1);
+                transition: transform 0.8s;
             }
             .modal-content{
                 background-color: rgb(247, 247, 247) ;
@@ -51,24 +64,9 @@
                 padding: 3rem;
                 border: 1px solid #888;
                 width: 30%;
-                animation: fade 2s;
                 border-radius: 5px;
                 min-width: 400px;
                 box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-            }
-            @keyframes fade{
-                from{
-                    opacity: 0;
-                }
-                to{
-                    opacity: 1;
-                }
-            }
-           
-            .fadeout{
-                opacity: 0;
-                transition: 2s;
-                display: none;
             }
             .close{
                 color: #aaa;
@@ -340,15 +338,15 @@
         var rgModalCon = document.querySelector("#rgcontent");
         var rgModalClose = document.querySelector("#rgclose");
         rgbtn.addEventListener('click',function(){
-            rgModal.style.display = "block";
+            rgModal.classList.add("active");
         })
         rgModalClose.addEventListener('click',function(){
-            rgModal.style.display = "none";
+            rgModal.classList.remove("active");
         })
         window.addEventListener('click', function(event){
             console.log(event.target);
             if(event.target == rgModal){
-                rgModal.style.display = "none";
+                rgModal.classList.remove("active");
             }
         })
     </script>
