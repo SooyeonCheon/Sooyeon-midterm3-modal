@@ -11,6 +11,11 @@
                 padding: 0;
                 font-family: 'Courier New', Courier, monospace;
             }
+            body{
+                background-image: url(./bg.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
             nav{
                 height: 3rem;
                 background-color: #1565c0;
@@ -105,7 +110,7 @@
                 align-items: center;
                 margin-bottom: 5px;
             }
-            #modalbox1 i{
+            i{
                 background-color: #1564bf;
                 color: white;
                 padding: 10px;
@@ -114,11 +119,7 @@
                 width: 1rem;
                 text-align: center;
             }
-            .fa-circle{
-                color: #1564bf;
-
-            }
-            #modalbox1 input[type=text], input[type=email], input[type=password], input[type=tel]{
+            input[type=text], input[type=email], input[type=password], input[type=tel]{
                 outline: none;
                 height: 2rem;
                 border: none;
@@ -190,6 +191,50 @@
             #reset:active{
                 box-shadow: 2px 2px 2px black;
             }
+            .lgline{
+                display: flex;
+                width: 100%;
+                margin-bottom: 1.5rem;
+                margin-top: 0.3rem;
+            }
+            .lgline input{
+                width: 300px;
+                height: 2.5rem;
+            }
+            .loginbtn{
+                width: 40%;
+                color: white;
+                text-shadow: 1px 1px 2px darkgray;
+                padding: 0.8rem 1rem;
+                margin: 0 1rem;
+                border: none;
+                box-shadow: 1px 1px 1px rgb(216, 215, 215);
+                transition: 0.5s;
+                border-radius: 20px;
+            }
+            .loginbtn:hover{
+                cursor: pointer;
+            }
+            #remem{
+                background-color: lightpink;
+            }
+            #remem:hover{
+                background-color: rgb(255, 142, 159);
+                box-shadow: 2px 2px 2px rgb(216, 215, 215);
+            }
+            #remem:active{
+                box-shadow: 2px 2px 2px black;
+            }
+            #login{
+                background-color: lightgreen;
+            }
+            #login:hover{
+                background-color: rgb(67, 233, 67);
+                box-shadow: 2px 2px 2px rgb(216, 215, 215);
+            }
+            #login:active{
+                box-shadow: 2px 2px 2px black;
+            }
         </style>
     </head>
     <body>
@@ -235,13 +280,13 @@
                         </div>
                         <div class="inline">
                             <span class="iconspan iconselect"><i class="fas fa-angle-right"></i></span>
-                            <select name="selectlist" id="selectlist">
+                            <select name="selectlist" id="selectlist" required>
 
                             </select>
                         </div>
                         <div class="inline">
                             <span class="iconspan iconselect"><i class="fas fa-signal"></i></span>
-                            <select name="selectlist2" id="selectlist2">
+                            <select name="selectlist2" id="selectlist2" required>
                                 
                             </select>
                         </div>
@@ -252,15 +297,38 @@
                     </form> 
                 </div>
             </div>
+
+            <div id="modalbox2" class="modal">
+                <div class="modal-content" id="lgcontent">
+                    <span class="close" id="lgclose">&times;</span>
+                    <p>Login</p>
+                    <form>
+                        <div class="lgline">
+                            <span class="iconspan"><i class="fas fa-envelope"></i></span>
+                            <input type="email" placeholder="E-mail" id="mail2" required>
+                        </div>
+                        <div class="lgline">
+                            <span class="iconspan"><i class="fas fa-unlock"></i></span>
+                            <input type="password" placeholder="Password" id="pw2" required>
+                        </div>
+                        <div class="btnline">
+                            <button type="button" class="loginbtn" id="remem">Remember me</button>
+                            <button type="submit" class="loginbtn" id="login">Login</button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
         </main>
     </body>
     <script>
         var engList = {
+            "---Select the option---" : "",
             "ESL" : "ESL",
             "TOEFL" : "TOEFL",
             "IELTS" : "IELTS"
         };
         var careerList = {
+            "---Select the option---" : "",
             "Web Development" : "WD", 
             "User Interface" : "UI", 
             "User experience" : "UX", 
@@ -268,6 +336,7 @@
             "Digital Marketing" : "DM"
         };
         var level = {
+            "---Select the option---" : "",
             "Beginner" : "BG",
             "Intermediate" : "IM",
             "Advanced" : "AD"
@@ -335,7 +404,6 @@
 
         var rgbtn = document.querySelector("#regisModal");
         var rgModal = document.querySelector("#modalbox1");
-        var rgModalCon = document.querySelector("#rgcontent");
         var rgModalClose = document.querySelector("#rgclose");
         rgbtn.addEventListener('click',function(){
             rgModal.classList.add("active");
@@ -344,10 +412,43 @@
             rgModal.classList.remove("active");
         })
         window.addEventListener('click', function(event){
-            console.log(event.target);
             if(event.target == rgModal){
                 rgModal.classList.remove("active");
             }
         })
+        var lgbtn = document.querySelector("#loginModal");
+        var lgModal = document.querySelector("#modalbox2");
+        var lgModalClose = document.querySelector("#lgclose");
+        lgbtn.addEventListener('click',function(){
+            lgModal.classList.add("active");
+        })
+        lgModalClose.addEventListener('click',function(){
+            lgModal.classList.remove("active");
+        })
+        window.addEventListener('click', function(event){
+            if(event.target == lgModal){
+                lgModal.classList.remove("active");
+            }
+        })
+        var remem = document.getElementById("remem");
+        var login = document.getElementById("login");
+        remem.addEventListener('click',function(){
+            var mail2 = document.getElementById("mail2").value;
+            var pw2 = document.querySelector("#pw2").value;
+            console.log(mail2);
+            console.log(pw2);
+            if (mail2 == "" || pw2 == ""){
+            alert("Please enter mail and password");
+            }
+        });
+        login.addEventListener('click',function(){
+            var mail2 = document.getElementById("mail2").value;
+            var pw2 = document.querySelector("#pw2").value;
+            console.log(mail2);
+            console.log(pw2);
+            if (mail2 == "" || pw2 == ""){
+            alert("Please enter mail and password");
+            }
+        });
     </script>
 </html>
